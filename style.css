@@ -65,6 +65,7 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
+    text-decoration: none;
 }
 
 .nav {
@@ -607,7 +608,6 @@ body {
    ✅ إخفاء شعار "Powered by Netlify"
    ═══════════════════════════════════════════════════════════ */
 
-/* إخفاء أي رابط أو عنصر مرتبط بـ Netlify */
 a[href*="netlify.com"],
 div[class*="netlify"],
 iframe[src*="netlify"],
@@ -624,7 +624,6 @@ iframe[src*="netlify"],
     left: -9999px !important;
 }
 
-/* إخفاء الأزرار الثابتة في أسفل الصفحة */
 body > a[href*="netlify"],
 body > div[style*="position: fixed"],
 body > div[style*="position:fixed"] {
@@ -632,7 +631,6 @@ body > div[style*="position:fixed"] {
     visibility: hidden !important;
 }
 
-/* إخفاء أي شعار يظهر في الركن السفلي */
 footer ~ div[style*="fixed"],
 body > div:last-child {
     display: none !important;

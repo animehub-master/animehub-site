@@ -353,61 +353,6 @@ body {
     line-height: 1.7;
 }
 
-/* Screenshots */
-.screenshots {
-    padding: 100px 0;
-}
-
-.screenshots-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-}
-
-.screenshot {
-    display: flex;
-    justify-content: center;
-}
-
-.screenshot-frame {
-    width: 100%;
-    max-width: 260px;
-    aspect-ratio: 9/16;
-    background: var(--card);
-    border-radius: 24px;
-    border: 1px solid rgba(196, 77, 255, 0.2);
-    overflow: hidden;
-    transition: all 0.3s;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.screenshot-frame:hover {
-    transform: translateY(-10px);
-    border-color: rgba(196, 77, 255, 0.5);
-    box-shadow: 0 30px 60px rgba(196, 77, 255, 0.25);
-}
-
-.screenshot-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(145deg, #1a1a25, #0a0a0f);
-    color: var(--text-2);
-}
-
-.screenshot-placeholder span {
-    font-size: 64px;
-    margin-bottom: 16px;
-}
-
-.screenshot-placeholder p {
-    font-size: 14px;
-    font-weight: 600;
-}
-
 /* Download */
 .download {
     padding: 100px 0;
@@ -564,10 +509,6 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .screenshots-grid {
-        grid-template-columns: 1fr;
-    }
-
     .nav {
         display: none;
     }
@@ -602,36 +543,4 @@ body {
         padding: 13px 22px;
         font-size: 14px;
     }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ✅ إخفاء شعار "Powered by Netlify"
-   ═══════════════════════════════════════════════════════════ */
-
-a[href*="netlify.com"],
-div[class*="netlify"],
-iframe[src*="netlify"],
-[id*="netlify"],
-[data-netlify],
-[class*="Netlify"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    width: 0 !important;
-    pointer-events: none !important;
-    position: absolute !important;
-    left: -9999px !important;
-}
-
-body > a[href*="netlify"],
-body > div[style*="position: fixed"],
-body > div[style*="position:fixed"] {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-footer ~ div[style*="fixed"],
-body > div:last-child {
-    display: none !important;
 }

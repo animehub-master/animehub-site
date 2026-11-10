@@ -5,462 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnimeHub — منصة الأنمي العربي المتكاملة</title>
     <meta name="description" content="AnimeHub — تطبيق عربي أنيق لمتابعة الأنمي مع ترجمة، تعليقات، مفضلة، وقائمة مشاهدة. تجربة داكنة، سرعة فائقة، وبدون إعلانات.">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #0a0a0f;
-            --bg-secondary: #12121a;
-            --card: #1a1a25;
-            --primary: #c44dff;
-            --primary-light: #ff6b9d;
-            --accent: #6b9dff;
-            --text: #e0e0e0;
-            --text-secondary: #999999;
-            --success: #2ecc71;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(196, 77, 255, 0.2);
-            padding: 15px 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 24px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ff6b9d, #c44dff, #6b9dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-right: 25px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 20px 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 40%, rgba(196, 77, 255, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(107, 157, 255, 0.1) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-20px, -20px) rotate(5deg); }
-        }
-
-        .hero-container {
-            max-width: 900px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(196, 77, 255, 0.2), rgba(107, 157, 255, 0.2));
-            border: 1px solid rgba(196, 77, 255, 0.4);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(196, 77, 255, 0.4); }
-            50% { box-shadow: 0 0 0 15px rgba(196, 77, 255, 0); }
-        }
-
-        .hero h1 {
-            font-size: clamp(36px, 7vw, 64px);
-            font-weight: 900;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero h1 .gradient {
-            background: linear-gradient(135deg, #ff6b9d, #c44dff, #6b9dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: clamp(16px, 2vw, 20px);
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 32px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b9d, #c44dff);
-            color: white;
-            box-shadow: 0 8px 25px rgba(196, 77, 255, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(196, 77, 255, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(196, 77, 255, 0.1);
-            color: var(--primary);
-            border: 1px solid rgba(196, 77, 255, 0.4);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(196, 77, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-
-        .section-title .gradient {
-            background: linear-gradient(135deg, #ff6b9d, #c44dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 17px;
-            margin-bottom: 60px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-card {
-            background: var(--card);
-            border: 1px solid rgba(196, 77, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px 25px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b9d, #c44dff, #6b9dff);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(196, 77, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(196, 77, 255, 0.15);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(196, 77, 255, 0.15));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: var(--text);
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .download-section {
-            padding: 80px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(196, 77, 255, 0.05), rgba(107, 157, 255, 0.05));
-            border-top: 1px solid rgba(196, 77, 255, 0.1);
-            border-bottom: 1px solid rgba(196, 77, 255, 0.1);
-        }
-
-        .download-card {
-            max-width: 700px;
-            margin: 0 auto;
-            background: var(--card);
-            border-radius: 24px;
-            padding: 50px 30px;
-            border: 1px solid rgba(196, 77, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .download-card h2 {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .download-card p {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .download-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        .download-info span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        footer {
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 14px;
-            border-top: 1px solid rgba(196, 77, 255, 0.1);
-        }
-
-        footer .gradient {
-            background: linear-gradient(135deg, #ff6b9d, #c44dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-
-        @media (max-width: 600px) {
-            .nav-links a {
-                margin-right: 12px;
-                font-size: 14px;
-            }
-            .nav-links a:not(:last-child) {
-                display: none;
-            }
-            .btn {
-                padding: 14px 24px;
-                font-size: 15px;
-                width: 100%;
-                justify-content: center;
-            }
-            .hero-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo">AnimeHub</a>
-            <div class="nav-links">
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo-text">AnimeHub</a>
+            <nav class="nav">
+                <a href="#features">المميزات</a>
+                <a href="#download">التحميل</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="badge">🚀 الإصدار 1.8 متوفر الآن</span>
+                <h1 class="hero-title">
+                    اكتشف عالم الأنمي<br>
+                    <span class="gradient-text">بلا حدود</span>
+                </h1>
+                <p class="hero-desc">
+                    تطبيق AnimeHub يقدم لك تجربة مشاهدة متكاملة، سريعة، وخالية من الإعلانات المزعجة. 
+                    انضم لآلاف المستخدمين الآن.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">⬇ تحميل التطبيق</a>
+                    <a href="#features" class="btn btn-secondary">استكشف المميزات ↓</a>
+                </div>
+                <div class="hero-info">
+                    <span>📱 Android 7.0+</span>
+                    <span>💾 حجم صغير</span>
+                    <span>🆓 مجاني تماماً</span>
+                </div>
+            </div>
+            <div class="hero-phone">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <div class="app-logo">AnimeHub</div>
+                        </div>
+                        <div class="app-cards">
+                            <div class="card"></div>
+                            <div class="card"></div>
+                            <div class="card"></div>
+                            <div class="card"></div>
+                            <div class="card"></div>
+                            <div class="card"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">لماذا <span class="gradient-text">AnimeHub</span>؟</h2>
+            <p class="section-desc">نظام متكامل صُمم خصيصاً لعشاق الأنمي</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>قاعدة بيانات ضخمة</h3>
+                    <p>نجلب لك آلاف العناوين مع التقييمات، القصص المترجمة، والتصنيفات عبر AniList.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>شعارات احترافية</h3>
+                    <p>وداعاً للأسماء المكتوبة بخط عادي. نستخدم TMDB لجلب الشعارات الرسمية لكل أنمي.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📺</div>
+                    <h3>مشاهدة سلسة</h3>
+                    <p>ندمج النسخ المدبلجة مع سيرفرات تشغيل سريعة ومستقرة، مع محرك بحث داخلي يتجاوز الحماية.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>تحديثات فورية</h3>
+                    <p>التطبيق مزود بتقنية Remote Config لضمان حصولك على أحدث الميزات وإصلاح الأخطاء فوراً.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>خصوصية وهدوء</h3>
+                    <p>لا توجد إعلانات مزعجة تقطع عليك متعتك. واجهة نظيفة، تركيز كامل على المحتوى.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>تتبع إحصائياتك</h3>
+                    <p>تابع تقدمك، أضف الأنميات إلى قائمتك، واستعرض إحصائياتك برسوم بيانية تفاعلية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <div class="container">
+            <div class="download-card">
+                <h2 class="download-title">حمّل <span class="gradient-text">AnimeHub</span> الآن</h2>
+                <p class="download-desc">ابدأ رحلتك في عالم الأنمي بتجربة عربية احترافية</p>
+                
+                <div class="download-info">
+                    <div class="info-item">
+                        <span class="info-label">الإصدار</span>
+                        <span class="info-value">1.8</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">المنصة</span>
+                        <span class="info-value">Android</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">الحجم</span>
+                        <span class="info-value">~20 MB</span>
+                    </div>
+                </div>
+
+                <a href="https://github.com/ahmedaltmim/animehub-site/releases/download/v1.8/animehub.apk" class="btn btn-primary btn-large">
+                    ⬇ تحميل APK
+                </a>
+                <p class="download-note">قد يطلب منك هاتفك السماح بتثبيت التطبيقات من مصادر غير معروفة. يرجى تفعيل هذا الخيار لإكمال التثبيت.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo gradient-text">AnimeHub</div>
+            <p class="footer-copy">© 2026 AnimeHub — جميع الحقوق محفوظة</p>
+            <div class="footer-links">
                 <a href="#features">المميزات</a>
                 <a href="#download">التحميل</a>
             </div>
         </div>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-badge">🚀 الإصدار الجديد متوفر الآن</div>
-            <h1>
-                اكتشف عالم الأنمي<br>
-                <span class="gradient">بلا حدود</span>
-            </h1>
-            <p>
-                تطبيق AnimeHub يقدم لك تجربة مشاهدة متكاملة، سريعة، وخالية من الإعلانات المزعجة. 
-                انضم لآلاف المستخدمين الآن.
-            </p>
-            <div class="hero-buttons">
-                <a href="#download" class="btn btn-primary">
-                    <span>⬇</span> تحميل التطبيق APK
-                </a>
-                <a href="#features" class="btn btn-secondary">
-                    استكشف المميزات ↓
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="features">
-        <h2 class="section-title">لماذا <span class="gradient">AnimeHub</span>؟</h2>
-        <p class="section-subtitle">نظام متكامل صُمم خصيصاً لعشاق الأنمي</p>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3>قاعدة بيانات ضخمة</h3>
-                <p>نجلب لك آلاف العناوين مع التقييمات، القصص المترجمة، والتصنيفات عبر AniList.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>شعارات احترافية</h3>
-                <p>وداعاً للأسماء المكتوبة بخط عادي. نستخدم TMDB لجلب الشعارات الرسمية لكل أنمي.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">📺</div>
-                <h3>مشاهدة سلسة</h3>
-                <p>ندمج النسخ المدبلجة مع سيرفرات تشغيل سريعة ومستقرة، مع محرك بحث داخلي يتجاوز الحماية.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>تحديثات فورية</h3>
-                <p>التطبيق مزود بتقنية Remote Config لضمان حصولك على أحدث الميزات وإصلاح الأخطاء فوراً.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3>خصوصية وهدوء</h3>
-                <p>لا توجد إعلانات مزعجة تقطع عليك متعتك. واجهة نظيفة، تركيز كامل على المحتوى.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>تتبع إحصائياتك</h3>
-                <p>تابع تقدمك، أضف الأنميات إلى قائمتك، واستعرض إحصائياتك برسوم بيانية تفاعلية.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="download-section" id="download">
-        <div class="download-card">
-            <h2>حمّل <span class="gradient">AnimeHub</span> الآن</h2>
-            <p>ابدأ رحلتك في عالم الأنمي بتجربة عربية احترافية</p>
-
-            <a href="https://github.com/ahmedaltmim/animehub-site/releases/download/1/animehob.apk" class="btn btn-primary">
-                <span>⬇</span> تحميل APK
-            </a>
-
-            <div class="download-info">
-                <span>📱 Android 7.0+</span>
-                <span>💾 حجم صغير</span>
-                <span>🆓 مجاني تماماً</span>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>صُنع بـ ❤️ لتطبيق <span class="gradient">AnimeHub</span></p>
-        <p style="margin-top: 10px; font-size: 12px;">© 2026 AnimeHub — جميع الحقوق محفوظة</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
